@@ -64,7 +64,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
 
         element_type pop_back() {
             if( !this->empty() ) {
-                return this->data[--this->used_length];
+                return this->at(--this->used_length);
 
             } else {
                 return element_type();
@@ -116,7 +116,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
 
         element_type & back() {
             if( !this->empty() ) {
-                return this->data[this->used_length - 1];
+                return this->at(this->used_length - 1);
 
             } else {
                 return this->front();
@@ -196,6 +196,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
 
         //Clear is unique in that is zeros the memory just in case
         void clear() {
+            //Also, this doesn't use iterators as those rely on the used length
             std::fill( this->data, this->data + this->capacity(), element_type( 0x0 ) );
             this->used_length = 0;
         }
@@ -255,7 +256,7 @@ template <typename T, size_t N>
 typename DataAdapter<T[N]>::size_type DataAdapter<T[N]>::data_size =
     sizeof( DataAdapter<T[N]>::value_type ) / sizeof( DataAdapter<T[N]>::element_type );
 
-
+/*Mutable iterator class template*/
 template <typename T, size_t N>
 class DataApapterIterator<T[N]>
         : public std::iterator<std::random_access_iterator_tag, T, size_t> {
@@ -376,6 +377,7 @@ class DataApapterIterator<T[N]>
 };
 
 
+/*Immutable iterator class template*/
 template <typename T, size_t N>
 class DataApapterIterator<const T[N]> : public std::iterator<std::random_access_iterator_tag, T, size_t> {
     public:
