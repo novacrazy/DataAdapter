@@ -3,13 +3,6 @@
 
 #include "../data_adapter.hpp"
 
-#ifndef NDEBUG
-#include <iostream>
-using std::cout;
-using std::endl;
-
-#endif // NDEBUG
-
 template <typename T, size_t N>
 class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
     public:
