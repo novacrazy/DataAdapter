@@ -1,7 +1,7 @@
 #ifndef DATA_ADAPTER_ARRAY_HPP_INCLUDED
 #define DATA_ADAPTER_ARRAY_HPP_INCLUDED
 
-#include "data_adapter.hpp"
+#include "../data_adapter.hpp"
 
 #ifndef NDEBUG
 #include <iostream>
