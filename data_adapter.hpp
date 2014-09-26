@@ -14,17 +14,12 @@
 template <typename T>
 class DataApapterIterator {};
 
-#if _MSC_VER && !__INTEL_COMPILER
+#if _MSC_VER && !__INTEL_COMPILER && !defined(_SCL_SECURE_NO_WARNINGS)
 /*
     This works with MSVC 13+S3, but I'm unsure before that.
 
-    By default (for some fucking reason), MSVC refuses to allow custom iterators on the standard
-    library functions, without them being explicitly checked for bounds and so forth.
-
-    The only real place I'm using my own iterators is within my own library, and it has been quite thoroughly tested
-    and doesn't need any extra checking.
-
-    This prevents the MSVC compile error of those by making the library think my iterators are checked.
+    Although the equivalent could be accomplished by defining _SCL_SECURE_NO_WARNINGS,
+    this prevents errors from springing up from the library when a user tries to compile
 */
 namespace std {
     template<class T>
