@@ -1,0 +1,2 @@
+* Add a hashtable specialization
+	- The hashtable implementation's API should be the same as the standard library's unordered_map or enough to satisfy the DataAdapter specialization
