@@ -1,0 +1,6 @@
+#ifndef DATA_ADAPTER_TESTS_H_INCLUDED
+#define DATA_ADAPTER_TESTS_H_INCLUDED
+
+#include "array/tests.hpp"
+
+#endif // DATA_ADAPTER_TESTS_H_INCLUDED
