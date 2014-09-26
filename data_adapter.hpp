@@ -58,11 +58,11 @@ class DataAdapterBase {
         virtual size_type length() const = 0;
         virtual size_type capacity() const = 0;
 
-        virtual bool empty() const {
+        virtual inline bool empty() const {
             return this->length() == 0;
         }
 
-        virtual bool full() const {
+        virtual inline bool full() const {
             return this->length() == this->capacity();
         }
 
@@ -148,30 +148,15 @@ class DataAdapterBase {
         virtual element_type & front() = 0;
 
         //These are implementation defined, as alternatives exist for varying data structures
-        virtual void sort() {
+        virtual inline void sort() {
             std::sort( this->begin(), this->end() );
         }
 
-        virtual void stable_sort() {
+        virtual inline void stable_sort() {
             std::stable_sort( this->begin(), this->end() );
         }
 
-        virtual const_iterator find( const element_type & n ) const {
-            return std::find( this->cbegin(), this->cend(), n );
-        }
-
-        virtual const_iterator find_sorted( const element_type & n ) const {
-            const_iterator it = std::lower_bound( this->cbegin(), this->cend(), n );
-
-            if( it != this->cend() && *it == n ) {
-                return it;
-
-            } else {
-                return this->cend();
-            }
-        }
-
-        virtual iterator find( const element_type & n ) {
+        virtual inline iterator find( const element_type & n ) {
             return std::find( this->begin(), this->end(), n );
         }
 
