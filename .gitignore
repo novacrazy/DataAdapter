@@ -32,3 +32,6 @@
 *.layout
 *.depend
 *.save
+
+# CMake directory
+build/

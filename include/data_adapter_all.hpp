@@ -1,6 +1,6 @@
 #ifndef DATA_ADAPTER_ALL_ADAPTERS_HPP_INCLUDE
 #define DATA_ADAPTER_ALL_ADAPTERS_HPP_INCLUDE
 
-#include "adapters/array.hpp"
+#include "./adapters/array.hpp"
 
 #endif // DATA_ADAPTER_ALL_ADAPTERS_HPP_INCLUDE
