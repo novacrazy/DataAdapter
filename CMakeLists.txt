@@ -21,6 +21,7 @@ set(SRC_LIST
 	include/adapters/array.hpp
 	include/data_adapter.hpp
 	include/data_adapter_all.hpp
+    include/data_adapter
 	tests/include/array/fixtures.hpp
 	tests/include/array/tests.hpp
 	tests/include/tests.h
@@ -29,7 +30,9 @@ set(SRC_LIST
 	)
 
 # Since DataAdapter is header only, this builds the test suites
-add_executable(DataAdapter ${CMAKE_CURRENT_SOURCE_DIR}/tests/src/test_main.cpp)
-target_link_libraries(DataAdapter ${GTEST_LIBRARIES})
+add_executable(DataAdapter_GTests ${CMAKE_CURRENT_SOURCE_DIR}/tests/src/test_main.cpp)
+target_link_libraries(DataAdapter_GTests ${GTEST_LIBRARIES})
 
-add_test(DataAdapter_Tests DataAdapter)
+add_executable(DataAdapter_Example ${CMAKE_CURRENT_SOURCE_DIR}/tests/src/example.cpp)
+
+add_test(DataAdapter_Tests DataAdapter_GTests)

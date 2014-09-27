@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 #include <tools.hpp>
-#include <adapters/array.hpp>
+#include <data_adapter>
 
 namespace DataAdapter_Tests {
 
