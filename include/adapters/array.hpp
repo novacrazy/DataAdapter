@@ -151,7 +151,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
                 if( pos < this->end() + 1 && this->length() + n <= this->capacity() ) {
 
                     iterator first = this->begin() + pos;
-                    iterator last = this->end() - n;
+                    iterator last = this->end();
 
                     this->resize( this->length() + n );
 
@@ -177,7 +177,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
                     size_type diff = last - first;
 
                     iterator f = this->begin() + pos;
-                    iterator l = this->end() - diff;
+                    iterator l = this->end();
 
                     this->resize( this->length() + diff );
 

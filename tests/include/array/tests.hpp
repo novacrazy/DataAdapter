@@ -236,8 +236,6 @@ namespace DataAdapter_Tests {
     }
 
     TEST_F( DataAdapter_StaticArray_TestFixture, ManipulationAdvanced ) {
-        typedef typename DataAdapter_StaticArray_TestFixture::adapter_t::element_type element;
-
         DataAdapter_StaticArray_TestFixture::adapter_t::iterator it, f, l;
 
         {
@@ -286,6 +284,44 @@ namespace DataAdapter_Tests {
             ASSERT_EQ( f, it );
             ASSERT_TRUE( A.empty() );
         }
+    }
+
+    TEST_F( DataAdapter_StaticArray_TestFixture, BinarySearch ) {
+        DataAdapter_StaticArray_TestFixture::adapter_t::iterator it;
+
+        {
+            SCOPED_TRACE( "setup" );
+
+            A.assign( k, k + STATIC_TEST_ARRAY_SIZE );
+
+            ASSERT_EQ( A.length(), STATIC_TEST_ARRAY_SIZE );
+            ASSERT_TRUE( is_sorted( A.begin(), A.end() ) );
+
+            A.resize(5);
+
+            ASSERT_EQ( A.length(), 5 );
+            ASSERT_TRUE( is_sorted( A.begin(), A.end() ) );
+        }
+
+        {
+            SCOPED_TRACE( "binary_search" );
+
+            it = A.find_sorted( 0x4 );
+
+            ASSERT_EQ( A.begin() + 3, it );
+            ASSERT_EQ( 0x4, *it );
+        }
+
+        {
+            SCOPED_TRACE( "insert from previous binary_search" );
+
+            it = A.insert( it, 0x4 );
+
+            ASSERT_EQ( 6, A.length() );
+            ASSERT_EQ( A.begin() + 3, it );
+            ASSERT_TRUE( is_sorted( A.begin(), A.end() ) );
+        }
+
     }
 }
 
