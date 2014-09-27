@@ -30,6 +30,21 @@ namespace DataAdapter_Tests {
         //Assert that a is now full and that .full works
         ASSERT_EQ( A.length(), A.capacity() );
         ASSERT_TRUE( A.full() );
+
+
+        DataAdapter_StaticArray_TestFixture::adapter_t C( 3, 0x4 );
+
+        ASSERT_EQ( 3,   C.length() );
+        ASSERT_EQ( 0x4, C[0] );
+        ASSERT_EQ( 0x4, C[1] );
+        ASSERT_EQ( 0x4, C[2] );
+
+        DataAdapter_StaticArray_TestFixture::adapter_t D( 3 );
+
+        ASSERT_EQ( 3,   D.length() );
+        ASSERT_EQ( 0x0, D[0] );
+        ASSERT_EQ( 0x0, D[1] );
+        ASSERT_EQ( 0x0, D[2] );
     }
 
     TEST_F( DataAdapter_StaticArray_TestFixture, IteratorsBasic ) {

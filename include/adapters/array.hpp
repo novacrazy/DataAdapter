@@ -28,6 +28,11 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             this->clear();
         }
 
+        DataAdapter(size_type n, const element_type& val = element_type(0x0)) {
+            this->clear();
+            this->insert(this->begin(), n, val);
+        }
+
         explicit DataAdapter( const value_type & val ) {
             this->assign( val, val + N );
         }
