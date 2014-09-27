@@ -28,13 +28,27 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             this->clear();
         }
 
-        DataAdapter(size_type n, const element_type& val = element_type(0x0)) {
+        DataAdapter(size_type n, const element_type& val = element_type( 0x0 )) {
             this->clear();
-            this->insert(this->begin(), n, val);
+            this->insert( this->begin(), n, val );
         }
 
         explicit DataAdapter( const value_type & val ) {
             this->assign( val, val + N );
+        }
+
+        DataAdapter(const DataAdapter& a) {
+            this->clear();
+            this->resize( a.length() );
+            std::copy( a.begin(), a.end(), this->begin() );
+        }
+
+        DataAdapter& operator=(const DataAdapter& a) {
+            this->clear();
+            this->resize( a.length() );
+            std::copy( a.begin(), a.end(), this->begin() );
+
+            return *this;
         }
 
         inline size_type capacity() const {

@@ -31,7 +31,6 @@ namespace DataAdapter_Tests {
         ASSERT_EQ( A.length(), A.capacity() );
         ASSERT_TRUE( A.full() );
 
-
         DataAdapter_StaticArray_TestFixture::adapter_t C( 3, 0x4 );
 
         ASSERT_EQ( 3,   C.length() );
@@ -45,6 +44,25 @@ namespace DataAdapter_Tests {
         ASSERT_EQ( 0x0, D[0] );
         ASSERT_EQ( 0x0, D[1] );
         ASSERT_EQ( 0x0, D[2] );
+
+        {
+            SCOPED_TRACE( "copying" );
+
+            D = C;
+
+            ASSERT_EQ( C.length(), D.length() );
+
+            ASSERT_EQUAL_RANGE( DataAdapter_StaticArray_TestFixture::adapter_t::iterator,
+                                        C.begin(), C.end(), D.begin() );
+
+
+            DataAdapter_StaticArray_TestFixture::adapter_t E( C );
+
+            ASSERT_EQ( C.length(), E.length() );
+
+            ASSERT_EQUAL_RANGE( DataAdapter_StaticArray_TestFixture::adapter_t::iterator,
+                                        C.begin(), C.end(), E.begin() );
+        }
     }
 
     TEST_F( DataAdapter_StaticArray_TestFixture, IteratorsBasic ) {
