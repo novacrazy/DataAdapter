@@ -18,16 +18,16 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 
 set(SRC_LIST
-	include/adapters/array.hpp
-	include/data_adapter.hpp
-	include/data_adapter_all.hpp
+    include/adapters/array.hpp
+    include/data_adapter.hpp
+    include/data_adapter_all.hpp
     include/data_adapter
-	tests/include/array/fixtures.hpp
-	tests/include/array/tests.hpp
-	tests/include/tests.h
-	tests/include/tools.hpp
-	tests/src/test_main.cpp
-	)
+    tests/include/array/fixtures.hpp
+    tests/include/array/tests.hpp
+    tests/include/tests.h
+    tests/include/tools.hpp
+    tests/src/test_main.cpp
+    )
 
 # Since DataAdapter is header only, this builds the test suites
 add_executable(DataAdapter_GTests ${CMAKE_CURRENT_SOURCE_DIR}/tests/src/test_main.cpp)
