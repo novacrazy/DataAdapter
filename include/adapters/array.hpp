@@ -3,6 +3,36 @@
 
 #include "../data_adapter.hpp"
 
+/**
+ *              Notes on the implementation of this:
+ *
+ *      Firstly, with the constraints given by a static array, my goal was to
+ * create an adapter that most closely resembles any STL container.
+ *
+ *      This means that, if possible, STL algorithms should be used in place of
+ * custom implementations. For example, copy, copy_backwards and fill.
+ *
+ *      Secondly, it was my own principle that the internal members
+ * (like used_length, data, and data_size) should never be accessed directly unless
+ * absolutely needed to (like in resize, length, capacity, and at). Since many of
+ * those are inlined, there is no performance loss, but it does make things more clear
+ * and easy to change if need be.
+ *
+ *      Thirdly, due to the nature of static arrays, almost all insert and erase operations are
+ * linear in time since data has to me moved around to create or fill space. That's not so bad, though.
+ *
+ *      Fourthly, exceptions are all standard library exceptions, usually std::out_of_range,
+ * since it made sense to use those. If used correctly, this container should never throw them, though.
+ *
+ *      Lastly, iterators. The iterators here are full random access iterators. However, they are
+ * 'boumd' to their parent containers and should the container be destroyed or resized smaller than the
+ * current position the iterator points to, dereferencing the iterator will results in undefined behavior.
+ *
+ *      Other than that, the iterators are not invalidated when the container changes, since all they store
+ * is an offset to the position in the container. Pretty simple stuff.
+ *
+ */
+
 template <typename T, size_t N>
 class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
     public:
@@ -83,7 +113,11 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
 
         element_type pop_back() {
             if( !this->empty() ) {
-                return this->at(--this->used_length);
+                element_type ret = this->back();
+
+                this->resize( this->length() - 1 );
+
+                return ret;
 
             } else {
                 return element_type();
@@ -135,7 +169,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
 
         element_type & back() {
             if( !this->empty() ) {
-                return this->at(this->used_length - 1);
+                return this->at(this->length() - 1);
 
             } else {
                 return this->front();
@@ -185,7 +219,6 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             } else {
                 return this->end();
             }
-            //Otherwise there is nothing to insert
         }
 
         //range
