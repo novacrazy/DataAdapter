@@ -58,22 +58,22 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             this->clear();
         }
 
-        DataAdapter(size_type n, const element_type& val = element_type( 0x0 )) {
+        DataAdapter( size_type n, const element_type &val = element_type( 0x0 ) ) {
             this->clear();
             this->insert( this->begin(), n, val );
         }
 
-        explicit DataAdapter( const value_type & val ) {
+        explicit DataAdapter( const value_type &val ) {
             this->assign( val, val + N );
         }
 
-        DataAdapter(const DataAdapter& a) {
+        DataAdapter( const DataAdapter &a ) {
             this->clear();
             this->resize( a.length() );
             std::copy( a.begin(), a.end(), this->begin() );
         }
 
-        DataAdapter& operator=(const DataAdapter& a) {
+        DataAdapter &operator=( const DataAdapter &a ) {
             this->clear();
             this->resize( a.length() );
             std::copy( a.begin(), a.end(), this->begin() );
@@ -89,13 +89,13 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             return this->used_length;
         }
 
-        void push_back( const element_type & n )    {
+        void push_back( const element_type &n )    {
             //uses the previous length returned by resize to dictate the position of the last element
             this->at( this->resize( this->length() + 1 ) ) = n;
         }
 
-        void push_front( const element_type & val )   {
-            if( !this->full() ) {
+        void push_front( const element_type &val )   {
+            if ( !this->full() ) {
 
                 iterator first = this->begin();
                 iterator last = this->end();
@@ -112,7 +112,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
         }
 
         element_type pop_back() {
-            if( !this->empty() ) {
+            if ( !this->empty() ) {
                 element_type ret = this->back();
 
                 this->resize( this->length() - 1 );
@@ -134,7 +134,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             return ret;
         }
 
-        inline element_type & at( size_type n ) {
+        inline element_type &at( size_type n ) {
             return this->data[n];
         }
 
@@ -142,7 +142,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             return this->data[n];
         }
 
-        inline element_type & at( iterator it ) {
+        inline element_type &at( iterator it ) {
             return this->at( it.off );
         }
 
@@ -154,12 +154,12 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             return this->at( 0 );
         }
 
-        inline element_type & front() {
+        inline element_type &front() {
             return this->at( 0 );
         }
 
         element_type back() const {
-            if( !this->empty() ) {
+            if ( !this->empty() ) {
                 return this->at( this->end() - 1 );
 
             } else {
@@ -167,22 +167,22 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             }
         }
 
-        element_type & back() {
-            if( !this->empty() ) {
-                return this->at(this->length() - 1);
+        element_type &back() {
+            if ( !this->empty() ) {
+                return this->at( this->length() - 1 );
 
             } else {
                 return this->front();
             }
         }
 
-        iterator sorted_insert( const element_type & n ) {
+        iterator sorted_insert( const element_type &n ) {
             //First, add it to the end
             this->push_back( n );
 
             //Then insert it into the proper place
-            for( size_type i = this->length() - 1; i > 0; --i ) {
-                if( this->at( i ) < this->at( i - 1 ) ) {
+            for ( size_type i = this->length() - 1; i > 0; --i ) {
+                if ( this->at( i ) < this->at( i - 1 ) ) {
                     std::swap( this->at( i ), this->at( i - 1 ) );
 
                 } else {
@@ -194,14 +194,14 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
         }
 
         //single element
-        inline iterator insert( iterator pos, const element_type & val ) {
+        inline iterator insert( iterator pos, const element_type &val ) {
             return this->insert( pos, 1, val );
         }
 
         //fill
-        iterator insert( iterator pos, size_type n, const element_type & val ) {
-            if( n != 0 ) {
-                if( pos < this->end() + 1 && this->length() + n <= this->capacity() ) {
+        iterator insert( iterator pos, size_type n, const element_type &val ) {
+            if ( n != 0 ) {
+                if ( pos < this->end() + 1 && this->length() + n <= this->capacity() ) {
 
                     iterator first = this->begin() + pos;
                     iterator last = this->end();
@@ -223,8 +223,8 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
 
         //range
         iterator insert( iterator pos, const_iterator first, const_iterator last ) {
-            if( first != last && first < last ) {
-                if( this->length() + ( last - first ) <= this->capacity() ) {
+            if ( first != last && first < last ) {
+                if ( this->length() + ( last - first ) <= this->capacity() ) {
 
                     size_type diff = last - first;
 
@@ -257,12 +257,12 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             return this->resize( n, element_type( 0x0 ) );
         }
 
-        size_type resize( size_type n, const element_type & v ) {
-            if( n <= this->capacity() ) {
+        size_type resize( size_type n, const element_type &v ) {
+            if ( n <= this->capacity() ) {
 
                 size_type ret = this->length();
 
-                if( n < this->length() ) {
+                if ( n < this->length() ) {
                     this->used_length = n;
 
                 } else {
@@ -287,7 +287,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
         iterator erase( iterator first, iterator last ) {
             size_type diff = ( last - first );
 
-            if( last <= this->end() && diff <= this->length() ) {
+            if ( last <= this->end() && diff <= this->length() ) {
 
                 iterator f = this->begin() + first;
                 iterator l = this->begin() + last;
@@ -311,7 +311,7 @@ typename DataAdapter<T[N]>::size_type DataAdapter<T[N]>::data_size =
 /*Mutable iterator class template*/
 template <typename T, size_t N>
 class DataApapterIterator<T[N]>
-        : public std::iterator<std::random_access_iterator_tag, T, size_t> {
+    : public std::iterator<std::random_access_iterator_tag, T, size_t> {
     public:
         typedef std::iterator<std::random_access_iterator_tag, T> iterator_traits;
 
@@ -327,26 +327,26 @@ class DataApapterIterator<T[N]>
 
     private:
         //Keep a pointer to the parent
-        parent_type * parent;
+        parent_type *parent;
         difference_type off;
 
     public:
         DataApapterIterator() : parent( NULL ), off( 0 ) {}
-        DataApapterIterator( parent_type * x, difference_type ioff = 0 ) : parent( x ), off( ioff ) {}
-        DataApapterIterator( parent_type & x, difference_type ioff = 0 ) : parent( &x ), off( ioff ) {}
-        DataApapterIterator( const DataApapterIterator & it ) : parent( it.parent ), off( it.off ) {}
+        DataApapterIterator( parent_type *x, difference_type ioff = 0 ) : parent( x ), off( ioff ) {}
+        DataApapterIterator( parent_type &x, difference_type ioff = 0 ) : parent( &x ), off( ioff ) {}
+        DataApapterIterator( const DataApapterIterator &it ) : parent( it.parent ), off( it.off ) {}
 
-        inline DataApapterIterator & operator=( const DataApapterIterator & it ) {
+        inline DataApapterIterator &operator=( const DataApapterIterator &it ) {
             this->parent = it.parent;
             this->off = it.off;
             return *this;
         }
 
-        inline bool operator==( const DataApapterIterator & it ) const {
+        inline bool operator==( const DataApapterIterator &it ) const {
             return this->parent == it.parent && this->off == it.off;
         }
 
-        inline bool operator!=( const DataApapterIterator & it ) const {
+        inline bool operator!=( const DataApapterIterator &it ) const {
             return this->parent != it.parent || this->off != it.off;
         }
 
@@ -381,7 +381,7 @@ class DataApapterIterator<T[N]>
         DATA_ADAPTER_ITERATOR_UNARY_OP( ++ )
         DATA_ADAPTER_ITERATOR_UNARY_OP( -- )
 
-        inline DataApapterIterator operator+( const DataApapterIterator & it ) const {
+        inline DataApapterIterator operator+( const DataApapterIterator &it ) const {
             DataApapterIterator tmp( *this );
             tmp.off += it.off;
             return tmp;
@@ -391,16 +391,16 @@ class DataApapterIterator<T[N]>
             tmp.off += n;
             return tmp;
         }
-        inline DataApapterIterator & operator +=( const DataApapterIterator & it ) {
+        inline DataApapterIterator &operator +=( const DataApapterIterator &it ) {
             this->off += it.off;
             return *this;
         }
-        inline DataApapterIterator & operator +=( difference_type n ) {
+        inline DataApapterIterator &operator +=( difference_type n ) {
             this->off += n;
             return *this;
         }
 
-        inline difference_type operator-( const DataApapterIterator & it ) const {
+        inline difference_type operator-( const DataApapterIterator &it ) const {
             return this->off - it.off;
         }
         inline DataApapterIterator operator-( difference_type n ) const {
@@ -408,11 +408,11 @@ class DataApapterIterator<T[N]>
             tmp.off -= n;
             return tmp;
         }
-        inline DataApapterIterator & operator -=( const DataApapterIterator & it ) {
+        inline DataApapterIterator &operator -=( const DataApapterIterator &it ) {
             this->off -= it.off;
             return *this;
         }
-        inline DataApapterIterator & operator -=( difference_type n ) {
+        inline DataApapterIterator &operator -=( difference_type n ) {
             this->off -= n;
             return *this;
         }
@@ -447,26 +447,26 @@ class DataApapterIterator<const T[N]> : public std::iterator<std::random_access_
 
     private:
         //Keep a pointer to the parent
-        const parent_type * parent;
+        const parent_type *parent;
         difference_type off;
 
     public:
         DataApapterIterator() : parent( NULL ), off( 0 ) {}
-        DataApapterIterator( const parent_type * x, difference_type ioff = 0 ) : parent( x ), off( ioff ) {}
-        DataApapterIterator( const parent_type & x, difference_type ioff = 0 ) : parent( &x ), off( ioff ) {}
-        DataApapterIterator( const DataApapterIterator & it ) : parent( it.parent ), off( it.off ) {}
+        DataApapterIterator( const parent_type *x, difference_type ioff = 0 ) : parent( x ), off( ioff ) {}
+        DataApapterIterator( const parent_type &x, difference_type ioff = 0 ) : parent( &x ), off( ioff ) {}
+        DataApapterIterator( const DataApapterIterator &it ) : parent( it.parent ), off( it.off ) {}
 
-        inline DataApapterIterator & operator=( const DataApapterIterator & it ) {
+        inline DataApapterIterator &operator=( const DataApapterIterator &it ) {
             this->parent = it.parent;
             this->off = it.off;
             return *this;
         }
 
-        inline bool operator==( const DataApapterIterator & it ) const {
+        inline bool operator==( const DataApapterIterator &it ) const {
             return this->parent == it.parent && this->off == it.off;
         }
 
-        inline bool operator!=( const DataApapterIterator & it ) const {
+        inline bool operator!=( const DataApapterIterator &it ) const {
             return this->parent != it.parent || this->off != it.off;
         }
 
@@ -481,7 +481,7 @@ class DataApapterIterator<const T[N]> : public std::iterator<std::random_access_
         DATA_ADAPTER_ITERATOR_UNARY_OP( ++ )
         DATA_ADAPTER_ITERATOR_UNARY_OP( -- )
 
-        inline DataApapterIterator operator+( const DataApapterIterator & it ) const {
+        inline DataApapterIterator operator+( const DataApapterIterator &it ) const {
             DataApapterIterator tmp( *this );
             tmp.off += it.off;
             return tmp;
@@ -491,16 +491,16 @@ class DataApapterIterator<const T[N]> : public std::iterator<std::random_access_
             tmp.off += n;
             return tmp;
         }
-        inline DataApapterIterator & operator +=( const DataApapterIterator & it ) {
+        inline DataApapterIterator &operator +=( const DataApapterIterator &it ) {
             this->off += it.off;
             return *this;
         }
-        inline DataApapterIterator & operator +=( difference_type n ) {
+        inline DataApapterIterator &operator +=( difference_type n ) {
             this->off += n;
             return *this;
         }
 
-        inline difference_type operator-( const DataApapterIterator & it ) const {
+        inline difference_type operator-( const DataApapterIterator &it ) const {
             return this->off - it.off;
         }
         inline DataApapterIterator operator-( difference_type n ) const {
@@ -508,11 +508,11 @@ class DataApapterIterator<const T[N]> : public std::iterator<std::random_access_
             tmp.off -= n;
             return tmp;
         }
-        inline DataApapterIterator & operator -=( const DataApapterIterator & it ) {
+        inline DataApapterIterator &operator -=( const DataApapterIterator &it ) {
             this->off -= it.off;
             return *this;
         }
-        inline DataApapterIterator & operator -=( difference_type n ) {
+        inline DataApapterIterator &operator -=( difference_type n ) {
             this->off -= n;
             return *this;
         }

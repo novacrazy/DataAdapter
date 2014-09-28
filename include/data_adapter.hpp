@@ -41,7 +41,7 @@ class DataAdapterBase {
         //Common typedefs that help in maintaining consistency
         typedef T                                           value_type;
         typedef K                                           element_type;
-        typedef T                     *                     pointer_type;
+        typedef T                                          *pointer_type;
         typedef size_t                                      size_type;
         typedef DataApapterIterator<value_type>             iterator;
         typedef DataApapterIterator<const value_type>       const_iterator;
@@ -71,12 +71,12 @@ class DataAdapterBase {
         virtual element_type pop_back()     = 0;
         virtual element_type pop_front()    = 0;
 
-        virtual element_type & at( size_type ) = 0;
+        virtual element_type &at( size_type ) = 0;
         virtual const element_type at( size_type ) const = 0;
-        virtual element_type & at( iterator ) = 0;
+        virtual element_type &at( iterator ) = 0;
         virtual const element_type at( const_iterator ) const = 0;
 
-        inline element_type & operator[]( size_type n ) {
+        inline element_type &operator[]( size_type n ) {
             return this->at( n );
         }
 
@@ -144,8 +144,8 @@ class DataAdapterBase {
 
         virtual element_type back() const   = 0;
         virtual element_type front() const  = 0;
-        virtual element_type & back()  = 0;
-        virtual element_type & front() = 0;
+        virtual element_type &back()  = 0;
+        virtual element_type &front() = 0;
 
         //These are implementation defined, as alternatives exist for varying data structures
         virtual inline void sort() {
@@ -156,14 +156,14 @@ class DataAdapterBase {
             std::stable_sort( this->begin(), this->end() );
         }
 
-        virtual inline iterator find( const element_type & n ) {
+        virtual inline iterator find( const element_type &n ) {
             return std::find( this->begin(), this->end(), n );
         }
 
-        virtual iterator find_sorted( const element_type & n ) {
+        virtual iterator find_sorted( const element_type &n ) {
             iterator it = std::lower_bound( this->begin(), this->end(), n );
 
-            if( it != this->end() && *it == n ) {
+            if ( it != this->end() && *it == n ) {
                 return it;
 
             } else {
@@ -181,8 +181,8 @@ class DataAdapter : public DataAdapterBase<T, T, DataAdapter<T> > {};
 
 //Using iterators, this should be able to print out any implementation of DataAdapter
 template <typename T>
-std::ostream & operator<<( std::ostream & out, const DataAdapter<T> & d ) {
-    for( typename DataAdapter<T>::const_iterator it = d.cbegin(); it != d.cend(); ++it ) {
+std::ostream &operator<<( std::ostream &out, const DataAdapter<T> &d ) {
+    for ( typename DataAdapter<T>::const_iterator it = d.cbegin(); it != d.cend(); ++it ) {
         out << *it << ' ';
     }
 

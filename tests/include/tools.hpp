@@ -5,11 +5,11 @@ namespace DataAdapter_Tests {
 
     template<class ForwardIt>
     ForwardIt is_sorted_until( ForwardIt first, ForwardIt last ) {
-        if( first != last ) {
+        if ( first != last ) {
             ForwardIt next = first;
 
-            while( ++next != last ) {
-                if( *next < *first ) {
+            while ( ++next != last ) {
+                if ( *next < *first ) {
                     return next;
                 }
 

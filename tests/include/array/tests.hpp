@@ -53,7 +53,7 @@ namespace DataAdapter_Tests {
             ASSERT_EQ( C.length(), D.length() );
 
             ASSERT_EQUAL_RANGE( DataAdapter_StaticArray_TestFixture::adapter_t::iterator,
-                                        C.begin(), C.end(), D.begin() );
+                                C.begin(), C.end(), D.begin() );
 
 
             DataAdapter_StaticArray_TestFixture::adapter_t E( C );
@@ -61,7 +61,7 @@ namespace DataAdapter_Tests {
             ASSERT_EQ( C.length(), E.length() );
 
             ASSERT_EQUAL_RANGE( DataAdapter_StaticArray_TestFixture::adapter_t::iterator,
-                                        C.begin(), C.end(), E.begin() );
+                                C.begin(), C.end(), E.begin() );
         }
     }
 
@@ -330,7 +330,7 @@ namespace DataAdapter_Tests {
             ASSERT_EQ( A.length(), STATIC_TEST_ARRAY_SIZE );
             ASSERT_TRUE( is_sorted( A.begin(), A.end() ) );
 
-            A.resize(5);
+            A.resize( 5 );
 
             ASSERT_EQ( A.length(), 5 );
             ASSERT_TRUE( is_sorted( A.begin(), A.end() ) );
