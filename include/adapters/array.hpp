@@ -311,7 +311,7 @@ typename DataAdapter<T[N]>::size_type DataAdapter<T[N]>::data_size =
 /*Mutable iterator class template*/
 template <typename T, size_t N>
 class DataApapterIterator<T[N]>
-    : public std::iterator<std::random_access_iterator_tag, T, size_t> {
+    : public std::iterator<std::random_access_iterator_tag, T> {
     public:
         typedef std::iterator<std::random_access_iterator_tag, T> iterator_traits;
 
@@ -431,7 +431,7 @@ class DataApapterIterator<T[N]>
 
 /*Immutable iterator class template*/
 template <typename T, size_t N>
-class DataApapterIterator<const T[N]> : public std::iterator<std::random_access_iterator_tag, T, size_t> {
+class DataApapterIterator<const T[N]> : public std::iterator<std::random_access_iterator_tag, T> {
     public:
         typedef std::iterator<std::random_access_iterator_tag, T> iterator_traits;
 
