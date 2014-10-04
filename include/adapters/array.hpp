@@ -81,6 +81,14 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             return *this;
         }
 
+        inline bool operator==(const DataAdapter& da) const {
+            return std::lexicographical_compare( this->begin(), this->end(), da.begin(), da.end() ) == false;
+        }
+
+        inline bool operator<(const DataAdapter& da) const {
+            return std::lexicographical_compare( this->begin(), this->end(), da.begin(), da.end() ) == true;
+        }
+
         inline size_type capacity() const {
             return DataAdapter::data_size;
         }
@@ -249,12 +257,12 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
         //Clear is unique in that is zeros the memory just in case
         void clear() {
             //Also, this doesn't use iterators as those rely on the used length
-            std::fill( this->data, this->data + this->capacity(), element_type( 0x0 ) );
+            std::fill( this->data, this->data + this->capacity(), element_type() );
             this->used_length = 0;
         }
 
         inline size_type resize( size_type n ) {
-            return this->resize( n, element_type( 0x0 ) );
+            return this->resize( n, element_type() );
         }
 
         size_type resize( size_type n, const element_type &v ) {

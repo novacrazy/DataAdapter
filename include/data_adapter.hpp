@@ -55,6 +55,9 @@ class DataAdapterBase {
             std::copy( first, last, this->begin() );
         }
 
+        virtual bool operator==(const derived_type& da) const = 0;
+        virtual bool operator<(const derived_type& da) const = 0;
+
         virtual size_type length() const = 0;
         virtual size_type capacity() const = 0;
 
