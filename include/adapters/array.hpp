@@ -97,7 +97,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
             return this->used_length;
         }
 
-        void push_back( const element_type &n )    {
+        void push_back( const element_type &n = element_type() )    {
             //uses the previous length returned by resize to dictate the position of the last element
             this->at( this->resize( this->length() + 1 ) ) = n;
         }
