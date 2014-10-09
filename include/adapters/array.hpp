@@ -209,7 +209,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
         //fill
         iterator insert( iterator pos, size_type n, const element_type &val ) {
             if ( n != 0 ) {
-                if ( pos < this->end() + 1 && this->length() + n <= this->capacity() ) {
+                if ( pos <= this->end() && this->length() + n <= this->capacity() ) {
 
                     iterator first = this->begin() + pos;
                     iterator last = this->end();
@@ -232,7 +232,7 @@ class DataAdapter<T[N]> : public DataAdapterBase<T[N], T, DataAdapter<T[N]> > {
         //range
         iterator insert( iterator pos, const_iterator first, const_iterator last ) {
             if ( first != last && first < last ) {
-                if ( this->length() + ( last - first ) <= this->capacity() ) {
+                if ( pos <= this->end() && this->length() + ( last - first ) <= this->capacity() ) {
 
                     size_type diff = last - first;
 
