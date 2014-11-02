@@ -6,14 +6,17 @@
 #include <tools.hpp>
 #include <data_adapter>
 
-namespace DataAdapter_Tests {
+namespace DataAdapter_Tests
+{
 
     template <typename T>
-    class DataAdapter_StaticArray_TestFixtureTemplate : public ::testing::Test {
+    class DataAdapter_StaticArray_TestFixtureTemplate : public ::testing::Test
+    {
         public:
             typedef DataAdapter<T> adapter_t;
 
-            virtual void SetUp() {
+            virtual void SetUp()
+            {
                 testing::StaticAssertTypeEq<typename is_array<T>::type, true_type>();
             }
 

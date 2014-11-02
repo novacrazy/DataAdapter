@@ -1,15 +1,20 @@
 #ifndef DATASTORE_TESTS_TOOLS_HPP_INCLUDED
 #define DATASTORE_TESTS_TOOLS_HPP_INCLUDED
 
-namespace DataAdapter_Tests {
+namespace DataAdapter_Tests
+{
 
     template<class ForwardIt>
-    ForwardIt is_sorted_until( ForwardIt first, ForwardIt last ) {
-        if ( first != last ) {
+    ForwardIt is_sorted_until( ForwardIt first, ForwardIt last )
+    {
+        if( first != last )
+        {
             ForwardIt next = first;
 
-            while ( ++next != last ) {
-                if ( *next < *first ) {
+            while( ++next != last )
+            {
+                if( *next < *first )
+                {
                     return next;
                 }
 
@@ -21,7 +26,8 @@ namespace DataAdapter_Tests {
     }
 
     template<class ForwardIt>
-    bool is_sorted( ForwardIt first, ForwardIt last ) {
+    bool is_sorted( ForwardIt first, ForwardIt last )
+    {
         return is_sorted_until( first, last ) == last;
     }
 
@@ -29,17 +35,20 @@ namespace DataAdapter_Tests {
     struct false_type {};
 
     template<class T>
-    struct is_array {
+    struct is_array
+    {
         typedef false_type type;
     };
 
     template<class T>
-    struct is_array<T[]> {
+    struct is_array<T[]>
+    {
         typedef true_type type;
     };
 
     template<class T, std::size_t N>
-    struct is_array<T[N]> {
+    struct is_array<T[N]>
+    {
         typedef true_type type;
     };
 

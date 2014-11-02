@@ -3,7 +3,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     DataAdapter<int[20]> my_container;
 
     my_container.push_front( 0x4321 );
@@ -12,7 +13,8 @@ int main() {
 
     DataAdapter<int[20]>::iterator it = my_container.begin();
 
-    for ( ; it != my_container.end(); ++it ) {
+    for( ; it != my_container.end(); ++it )
+    {
         cout << hex << uppercase << "0x" << *it << ' ';
     }
 

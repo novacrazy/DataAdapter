@@ -1,11 +1,9 @@
 #ifndef DATA_ADAPTER_HPP_INCLUDED
 #define DATA_ADAPTER_HPP_INCLUDED
 
-//C Libraries
 #include <cstdlib>
 #include <cstring>
 
-//C++ Libraries
 #include <iterator>
 #include <algorithm>
 #include <stdexcept>
@@ -21,10 +19,12 @@ class DataApapterIterator {};
     Although the equivalent could be accomplished by defining _SCL_SECURE_NO_WARNINGS,
     this prevents errors from springing up from the library when a user tries to compile
 */
-namespace std {
+namespace std
+{
     template<class T>
     struct _Is_checked_helper<DataApapterIterator<T> >
-            : public true_type {
+            : public true_type
+    {
         // mark back_insert_iterator as checked in MSVC, even though it's not. Heh. Bloody compile errors.
     };
 }
@@ -36,140 +36,156 @@ namespace std {
 */
 
 template <typename T, typename K, typename _Derived>
-class DataAdapterBase {
+class DataAdapterBase
+{
     public:
         //Common typedefs that help in maintaining consistency
-        typedef T                                           value_type;
-        typedef K                                           element_type;
+        typedef K                                           value_type;
+        typedef value_type                                 &reference;
+        typedef const reference                             const_reference;
         typedef T                                          *pointer_type;
         typedef size_t                                      size_type;
-        typedef DataApapterIterator<value_type>             iterator;
-        typedef DataApapterIterator<const value_type>       const_iterator;
+        typedef DataApapterIterator<T>                      iterator;
+        typedef DataApapterIterator<const T>                const_iterator;
         typedef std::reverse_iterator<iterator>             reverse_iterator;
         typedef std::reverse_iterator<const_iterator>       const_reverse_iterator;
+        typedef typename iterator::difference_type          difference_type;
         typedef _Derived                                    derived_type;
 
         template <typename _ForwardIterator>
-        void assign( _ForwardIterator first, _ForwardIterator last ) {
+        void assign( _ForwardIterator first, _ForwardIterator last )
+        {
             this->resize( last - first );
             std::copy( first, last, this->begin() );
         }
 
-        virtual bool operator==(const derived_type& da) const = 0;
-        virtual bool operator<(const derived_type& da) const = 0;
+        virtual bool operator==( const derived_type &da ) const = 0;
+        virtual bool operator<( const derived_type &da ) const = 0;
 
         virtual size_type length() const = 0;
         virtual size_type capacity() const = 0;
 
-        virtual inline bool empty() const {
+        virtual inline bool empty() const
+        {
             return this->length() == 0;
         }
 
-        virtual inline bool full() const {
+        virtual inline bool full() const
+        {
             return this->length() == this->capacity();
         }
 
-        virtual void push_back( const element_type & )    = 0;
-        virtual void push_front( const element_type & )   = 0;
-        virtual element_type pop_back()     = 0;
-        virtual element_type pop_front()    = 0;
+        virtual void push_back( const value_type & )    = 0;
+        virtual void push_front( const value_type & )   = 0;
+        virtual value_type pop_back()     = 0;
+        virtual value_type pop_front()    = 0;
 
-        virtual element_type &at( size_type ) = 0;
-        virtual const element_type at( size_type ) const = 0;
-        virtual element_type &at( iterator ) = 0;
-        virtual const element_type at( const_iterator ) const = 0;
+        virtual value_type &at( size_type ) = 0;
+        virtual const value_type at( size_type ) const = 0;
+        virtual value_type &at( iterator ) = 0;
+        virtual const value_type at( const_iterator ) const = 0;
 
-        inline element_type &operator[]( size_type n ) {
+        inline value_type &operator[]( size_type n )
+        {
             return this->at( n );
         }
 
-        inline const element_type operator[]( size_type n ) const {
+        inline const value_type operator[]( size_type n ) const
+        {
             return this->at( n );
         }
 
-        virtual iterator insert( iterator, const element_type & ) = 0;
-        virtual iterator insert( iterator, size_type, const element_type & ) = 0;
-        virtual iterator insert( iterator, const_iterator, const_iterator ) = 0;
 
-        virtual iterator sorted_insert( const element_type & ) = 0;
-
-        virtual void clear() = 0;
+        virtual iterator sorted_insert( const value_type & ) = 0;
 
         virtual size_type resize( size_type ) = 0;
-        virtual size_type resize( size_type, const element_type & ) = 0;
+        virtual size_type resize( size_type, const value_type & ) = 0;
 
-        virtual iterator erase( iterator ) = 0;
-        virtual iterator erase( iterator, iterator ) = 0;
-
-        virtual iterator begin() {
+        virtual iterator begin()
+        {
             return iterator( dynamic_cast<derived_type *>( this ) );
         }
 
-        virtual iterator end() {
+        virtual iterator end()
+        {
             iterator tmp( dynamic_cast<derived_type *>( this ) );
             std::advance( tmp, this->length() );
             return tmp;
         }
 
-        virtual const_iterator cbegin() const {
+        virtual const_iterator cbegin() const
+        {
             return const_iterator( dynamic_cast<const derived_type *>( this ) );
         }
 
-        virtual const_iterator cend() const {
+        virtual const_iterator cend() const
+        {
             const_iterator tmp( dynamic_cast<const derived_type *>( this ) );
             std::advance( tmp, this->length() );
             return tmp;
         }
 
-        inline const_iterator begin() const {
+        inline const_iterator begin() const
+        {
             return this->cbegin();
         }
 
-        inline const_iterator end() const {
+        inline const_iterator end() const
+        {
             return this->cend();
         }
 
-        inline reverse_iterator rbegin() {
+        inline reverse_iterator rbegin()
+        {
             return reverse_iterator( this->end() );
         }
 
-        inline reverse_iterator rend() {
+        inline reverse_iterator rend()
+        {
             return reverse_iterator( this->begin() );
         }
 
-        inline const_reverse_iterator crbegin() const {
+        inline const_reverse_iterator crbegin() const
+        {
             return const_reverse_iterator( this->cend() );
         }
 
-        inline const_reverse_iterator crend() const {
+        inline const_reverse_iterator crend() const
+        {
             return const_reverse_iterator( this->cbegin() );
         }
 
-        virtual element_type back() const   = 0;
-        virtual element_type front() const  = 0;
-        virtual element_type &back()  = 0;
-        virtual element_type &front() = 0;
+        virtual value_type back() const   = 0;
+        virtual value_type front() const  = 0;
+        virtual value_type &back()  = 0;
+        virtual value_type &front() = 0;
 
         //These are implementation defined, as alternatives exist for varying data structures
-        virtual inline void sort() {
+        virtual inline void sort()
+        {
             std::sort( this->begin(), this->end() );
         }
 
-        virtual inline void stable_sort() {
+        virtual inline void stable_sort()
+        {
             std::stable_sort( this->begin(), this->end() );
         }
 
-        virtual inline iterator find( const element_type &n ) {
+        virtual inline iterator find( const value_type &n )
+        {
             return std::find( this->begin(), this->end(), n );
         }
 
-        virtual iterator find_sorted( const element_type &n ) {
+        virtual iterator find_sorted( const value_type &n )
+        {
             iterator it = std::lower_bound( this->begin(), this->end(), n );
 
-            if ( it != this->end() && *it == n ) {
+            if( it != this->end() && *it == n )
+            {
                 return it;
-
-            } else {
+            }
+            else
+            {
                 return this->end();
             }
         }
@@ -184,8 +200,10 @@ class DataAdapter : public DataAdapterBase<T, T, DataAdapter<T> > {};
 
 //Using iterators, this should be able to print out any implementation of DataAdapter
 template <typename T>
-std::ostream &operator<<( std::ostream &out, const DataAdapter<T> &d ) {
-    for ( typename DataAdapter<T>::const_iterator it = d.cbegin(); it != d.cend(); ++it ) {
+std::ostream &operator<<( std::ostream &out, const DataAdapter<T> &d )
+{
+    for( typename DataAdapter<T>::const_iterator it = d.cbegin(); it != d.cend(); ++it )
+    {
         out << *it << ' ';
     }
 

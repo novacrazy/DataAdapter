@@ -3,14 +3,16 @@
 
 #include "fixtures.hpp"
 
-namespace DataAdapter_Tests {
+namespace DataAdapter_Tests
+{
 
     static const int STATIC_TEST_ARRAY_SIZE = 10;
 
     typedef DataAdapter_StaticArray_TestFixtureTemplate<int[STATIC_TEST_ARRAY_SIZE]>
     DataAdapter_StaticArray_TestFixture;
 
-    TEST_F( DataAdapter_StaticArray_TestFixture, Construction ) {
+    TEST_F( DataAdapter_StaticArray_TestFixture, Construction )
+    {
 
         //Assert that the value_type is the same as T
         ::testing::StaticAssertTypeEq <
@@ -65,7 +67,8 @@ namespace DataAdapter_Tests {
         }
     }
 
-    TEST_F( DataAdapter_StaticArray_TestFixture, IteratorsBasic ) {
+    TEST_F( DataAdapter_StaticArray_TestFixture, IteratorsBasic )
+    {
         DataAdapter_StaticArray_TestFixture::adapter_t::iterator it( &A ), it2;
 
         //See if the default value is indeed begin.
@@ -86,7 +89,8 @@ namespace DataAdapter_Tests {
         ASSERT_EQ( A.cbegin(), A.begin() );
     }
 
-    TEST_F( DataAdapter_StaticArray_TestFixture, InsertionBasic ) {
+    TEST_F( DataAdapter_StaticArray_TestFixture, InsertionBasic )
+    {
         DataAdapter_StaticArray_TestFixture::adapter_t::iterator it;
 
         {
@@ -130,7 +134,8 @@ namespace DataAdapter_Tests {
         }
     }
 
-    TEST_F( DataAdapter_StaticArray_TestFixture, InsertionNormal ) {
+    TEST_F( DataAdapter_StaticArray_TestFixture, InsertionNormal )
+    {
         DataAdapter_StaticArray_TestFixture::adapter_t::iterator it;
 
         {
@@ -175,7 +180,8 @@ namespace DataAdapter_Tests {
         }
     }
 
-    TEST_F( DataAdapter_StaticArray_TestFixture, InsertionAdvanced ) {
+    TEST_F( DataAdapter_StaticArray_TestFixture, InsertionAdvanced )
+    {
         DataAdapter_StaticArray_TestFixture::adapter_t::iterator it;
 
         {
@@ -235,7 +241,8 @@ namespace DataAdapter_Tests {
         }
     }
 
-    TEST_F( DataAdapter_StaticArray_TestFixture, ManipulationBasic ) {
+    TEST_F( DataAdapter_StaticArray_TestFixture, ManipulationBasic )
+    {
         typedef typename DataAdapter_StaticArray_TestFixture::adapter_t::element_type element;
 
         DataAdapter_StaticArray_TestFixture::adapter_t::iterator it;
@@ -268,7 +275,8 @@ namespace DataAdapter_Tests {
         }
     }
 
-    TEST_F( DataAdapter_StaticArray_TestFixture, ManipulationAdvanced ) {
+    TEST_F( DataAdapter_StaticArray_TestFixture, ManipulationAdvanced )
+    {
         DataAdapter_StaticArray_TestFixture::adapter_t::iterator it, f, l;
 
         {
@@ -319,7 +327,8 @@ namespace DataAdapter_Tests {
         }
     }
 
-    TEST_F( DataAdapter_StaticArray_TestFixture, BinarySearch ) {
+    TEST_F( DataAdapter_StaticArray_TestFixture, BinarySearch )
+    {
         DataAdapter_StaticArray_TestFixture::adapter_t::iterator it;
 
         {
